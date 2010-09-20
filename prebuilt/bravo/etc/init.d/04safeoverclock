@@ -1,0 +1,13 @@
+#!/system/bin/sh
+# Script For AOSPDesire
+
+####CPU Settings: Enable Safe Overclock for all Desire####
+
+echo 245760 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+echo 1113600 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+
+
+echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/ignore_nice_load
+echo 400000 > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/sampling_rate
+echo 85 > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold
+
