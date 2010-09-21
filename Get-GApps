@@ -10,6 +10,7 @@ curl -o `dirname $0`/GApps/GoogleBackupTransport.apk -O http://meliantq.net/andr
 curl -o `dirname $0`/GApps/GoogleCalendarSyncAdapter.apk -O http://meliantq.net/android/GApps/GoogleCalendarSyncAdapter.apk
 curl -o `dirname $0`/GApps/GoogleContactsSyncAdapter.apk -O http://meliantq.net/android/GApps/GoogleContactsSyncAdapter.apk
 curl -o `dirname $0`/GApps/GoogleFeedback.apk -O http://meliantq.net/android/GApps/GoogleFeedback.apk
+curl -o `dirname $0`/GApps/GoogleGoggles.apk -O http://meliantq.net/android/GApps/GoogleGoggles.apk
 curl -o `dirname $0`/GApps/GooglePartnerSetup.apk -O http://meliantq.net/android/GApps/GooglePartnerSetup.apk
 curl -o `dirname $0`/GApps/GoogleQuickSearchBox.apk -O http://meliantq.net/android/GApps/GoogleQuickSearchBox.apk
 curl -o `dirname $0`/GApps/GoogleServicesFramework.apk -O http://meliantq.net/android/GApps/GoogleServicesFramework.apk
@@ -27,6 +28,7 @@ curl -o `dirname $0`/GApps/MarketUpdater.apk -O http://meliantq.net/android/GApp
 curl -o `dirname $0`/GApps/MediaUploader.apk -O http://meliantq.net/android/GApps/MediaUploader.apk
 curl -o `dirname $0`/GApps/NetworkLocation.apk -O http://meliantq.net/android/GApps/NetworkLocation.apk
 curl -o `dirname $0`/GApps/OneTimeInitializer.apk -O http://meliantq.net/android/GApps/OneTimeInitializer.apk
+curl -o `dirname $0`/GApps/Panoramio.apk -O http://meliantq.net/android/GApps/Panoramio.apk
 curl -o `dirname $0`/GApps/PassionQuickOffice.apk -O http://meliantq.net/android/GApps/PassionQuickOffice.apk
 curl -o `dirname $0`/GApps/SetupWizard.apk -O http://meliantq.net/android/GApps/SetupWizard.apk
 curl -o `dirname $0`/GApps/Street.apk -O http://meliantq.net/android/GApps/Street.apk
