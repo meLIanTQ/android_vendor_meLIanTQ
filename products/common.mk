@@ -34,7 +34,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # CyanogenMod specific product packages
 PRODUCT_PACKAGES += \
-    DSPManager
+    DSPManager \
+    RenderFX
 
 # Copy over the changelog to the device
 PRODUCT_COPY_FILES += \
@@ -60,13 +61,11 @@ PRODUCT_COPY_FILES += \
     vendor/meLIanTQ/prebuilt/common/bin/handle_compcache:system/bin/handle_compcache \
     vendor/meLIanTQ/prebuilt/common/bin/compcache:system/bin/compcache \
     vendor/meLIanTQ/prebuilt/common/bin/fix_permissions:system/bin/fix_permissions \
-    vendor/meLIanTQ/prebuilt/common/bin/sysinit:system/bin/sysinit \
     vendor/meLIanTQ/prebuilt/common/etc/resolv.conf:system/etc/resolv.conf \
     vendor/meLIanTQ/prebuilt/common/etc/sysctl.conf:system/etc/sysctl.conf \
     vendor/meLIanTQ/prebuilt/common/etc/terminfo/l/linux:system/etc/terminfo/l/linux \
     vendor/meLIanTQ/prebuilt/common/etc/terminfo/u/unknown:system/etc/terminfo/u/unknown \
     vendor/meLIanTQ/prebuilt/common/etc/profile:system/etc/profile \
-    vendor/meLIanTQ/prebuilt/common/etc/init.local.rc:system/etc/init.local.rc \
     vendor/meLIanTQ/prebuilt/common/etc/init.d/00banner:system/etc/init.d/00banner \
     vendor/meLIanTQ/prebuilt/common/etc/init.d/01sysctl:system/etc/init.d/01sysctl \
     vendor/meLIanTQ/prebuilt/common/etc/init.d/03firstboot:system/etc/init.d/03firstboot \
