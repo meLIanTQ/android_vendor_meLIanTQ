@@ -80,7 +80,11 @@ PRODUCT_COPY_FILES += \
 # Always run in insecure mode, enables root on user build variants
 #ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
 
+# Empty CYANOGEN_WITH_GOOGLE for remove the Backuptools
+CYANOGEN_WITH_GOOGLE := true
+
 ifdef meLIanTQ_WITH_GOOGLE
+
     PRODUCT_COPY_FILES += \
         vendor/meLIanTQ/GApps/ChromeToPhone.apk:system/app/ChromeToPhone.apk \
         vendor/meLIanTQ/GApps/Facebook.apk:system/app/Facebook.apk \
