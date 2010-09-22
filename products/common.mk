@@ -94,6 +94,7 @@ ifdef meLIanTQ_WITH_GOOGLE
         vendor/meLIanTQ/GApps/GoogleCalendarSyncAdapter.apk:system/app/GoogleCalendarSyncAdapter.apk \
         vendor/meLIanTQ/GApps/GoogleContactsSyncAdapter.apk:system/app/GoogleContactsSyncAdapter.apk \
         vendor/meLIanTQ/GApps/GoogleFeedback.apk:system/app/GoogleFeedback.apk \
+        vendor/meLIanTQ/GApps/GoogleGoggles.apk:system/app/GoogleGoggles.apk \
         vendor/meLIanTQ/GApps/GooglePartnerSetup.apk:system/app/GooglePartnerSetup.apk \
         vendor/meLIanTQ/GApps/GoogleQuickSearchBox.apk:system/app/GoogleQuickSearchBox.apk \
         vendor/meLIanTQ/GApps/GoogleServicesFramework.apk:system/app/GoogleServicesFramework.apk \
@@ -106,6 +107,7 @@ ifdef meLIanTQ_WITH_GOOGLE
         vendor/meLIanTQ/GApps/MediaUploader.apk:system/app/MediaUploader.apk \
         vendor/meLIanTQ/GApps/NetworkLocation.apk:system/app/NetworkLocation.apk \
         vendor/meLIanTQ/GApps/OneTimeInitializer.apk:system/app/OneTimeInitializer.apk \
+        vendor/meLIanTQ/GApps/Panoramio.apk:system/app/Panoramio.apk \
         vendor/meLIanTQ/GApps/PassionQuickOffice.apk:system/app/PassionQuickOffice.apk \
         vendor/meLIanTQ/GApps/SetupWizard.apk:system/app/SetupWizard.apk \
         vendor/meLIanTQ/GApps/Street.apk:system/app/Street.apk \

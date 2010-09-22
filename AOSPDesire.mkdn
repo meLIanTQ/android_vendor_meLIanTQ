@@ -3,6 +3,14 @@ GitHub Source & Compilation of Rom: http://github.com/meLIanTQ
 
 Changelog:
 
+1.5.0
+
+    * -Update: GApps
+    * -Kernel: Little Change of voltage
+    * -Kernel: Update Wifi Driver
+    * -Integration: SpareParts
+    * -Switch to CyanogenMod System
+
 1.4.3
 
     * -Fix Superuser (Signature Issue) | su binarie build
