@@ -56,9 +56,9 @@
   <apn carrier="Mobile Vikings MMS" mcc="206" mnc="20" apn="mms.be" user="mms" password="mms" mmsc="http://mmsc.be" mmsproxy="217.72.235.1" mmsport="8080" type="mms" />
   <apn carrier="Mobile Vikings" mcc="206" mnc="20" apn="web.be" user="web" password="web" type="default,supl" />
   <apn carrier="Virgin" mcc="208" mnc="01" apn="ofnew.fr" user="orange" password="orange" type="default,supl" />
-  <apn carrier="Orange FR-MMS" mcc="208" mnc="01" apn="orange.acte" user="orange" password="orange" server="*" mmsc="http://mms.orange.fr" mmsproxy="192.168.010.200" mmsport="8080" type="mms" />
+  <apn carrier="Orange FR-MMS" mcc="208" mnc="01" apn="orange.acte" user="orange" password="orange" mmsc="http://mms.orange.fr" mmsproxy="192.168.010.200" mmsport="8080" type="mms" />
   <apn carrier="Orange Internet" mcc="208" mnc="01" apn="orange.fr" user="orange" password="orange" type="default,supl" />
-  <apn carrier="Orange World FR" mcc="208" mnc="01" apn="orange" user="orange" password="orange" server="*" type="default,supl" />
+  <apn carrier="Orange World FR" mcc="208" mnc="01" apn="orange" user="orange" password="orange" proxy="192.168.010.100" port="8080" type="default,supl" />
   <apn carrier="MMS Orange GPRS" mcc="208" mnc="02" apn="orange.acte" user="orange" password="orange" mmsc="http://mms.orange.fr/" mmsproxy="192.168.10.200" mmsport="8080" type="mms" />
   <apn carrier="Orange GPRS ISP" mcc="208" mnc="02" apn="orange.fr" type="default,supl" />
   <apn carrier="SFR MMS" mcc="208" mnc="10" apn="mmssfr" mmsc="http://mms1" mmsproxy="10.151.0.1" mmsport="8080" type="mms" />

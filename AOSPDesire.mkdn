@@ -3,6 +3,13 @@ GitHub Source & Compilation of Rom: http://github.com/meLIanTQ
 
 Changelog:
 
+Notes* Need time for integrate in Settings all CM Settings
+
+1.5.1
+
+    * -Fix HTC IME
+    * -Integration: UI Tweaks
+
 1.5.0
 
     * -Update: GApps

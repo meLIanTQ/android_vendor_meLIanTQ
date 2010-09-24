@@ -35,6 +35,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # CyanogenMod specific product packages
 PRODUCT_PACKAGES += \
     DSPManager \
+    Themes \
+    ThemesHelper \
     RenderFX
 
 # Copy over the changelog to the device

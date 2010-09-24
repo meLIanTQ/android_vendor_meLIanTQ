@@ -20,8 +20,11 @@ PRODUCT_BUILD_PROP_OVERRIDES += BUILD_ID=FRF91 BUILD_DISPLAY_ID=FRF91 PRODUCT_NA
 # Include the Torch app
 PRODUCT_PACKAGES += Torch
 
-# Extra Passion overlay
+# Extra Bravo overlay
 PRODUCT_PACKAGE_OVERLAYS += vendor/meLIanTQ/overlay/bravo
+
+# If Want Build with SenceIcon
+#PRODUCT_PACKAGE_OVERLAYS += vendor/meLIanTQ/SenceIcon
 
 # Extra RIL settings
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -39,12 +42,13 @@ meLIanTQ_WITH_GOOGLE := true
 # Set ro.modversion
 #
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.modversion=AOSPDesire_1.5.0
+    ro.modversion=AOSPDesire_1.5.1
 
 #
 # Copy Desire specific prebuilt files
 #
 PRODUCT_COPY_FILES +=  \
+    vendor/meLIanTQ/prebuilt/bravo/app/Clicker.apk:system/app/Clicker.apk \
     vendor/meLIanTQ/prebuilt/bravo/app/HTC_IME.apk:system/app/HTC_IME.apk \
     vendor/meLIanTQ/prebuilt/bravo/app/SlideShow.apk:system/app/SlideShow.apk \
     vendor/meLIanTQ/prebuilt/bravo/etc/init.d/02modules:system/etc/init.d/02modules \
