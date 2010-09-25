@@ -5,6 +5,14 @@ Changelog:
 
 Notes* Need time for integrate in Settings all CM Settings
 
+1.5.2
+
+    * -Changes: Ui Themes
+    * -Changes: Ui Quiet Hours => PreferenceScreen
+    * -Integration: Haptic Tweaks
+    * -Integration: Sound Limitation
+    * -Update: Camera (AutoFocus continued for Camcorder)
+
 1.5.1
 
     * -Fix HTC IME

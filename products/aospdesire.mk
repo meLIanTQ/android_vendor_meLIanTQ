@@ -42,7 +42,7 @@ meLIanTQ_WITH_GOOGLE := true
 # Set ro.modversion
 #
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.modversion=AOSPDesire_1.5.1
+    ro.modversion=AOSPDesire_1.5.2
 
 #
 # Copy Desire specific prebuilt files
