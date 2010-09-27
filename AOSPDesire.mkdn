@@ -5,8 +5,15 @@ Changelog:
 
 Notes* Need time for integrate in Settings all CM Settings
 
+1.5.3
+
+    * -Sync: with CyanogenMOD repo
+    * -FIX: Adfree
+    * -Changes: User Build
+
 1.5.2
 
+    * -Translation: Themes (French)
     * -Changes: Ui Themes
     * -Changes: Ui Quiet Hours => PreferenceScreen
     * -Integration: Haptic Tweaks

@@ -42,7 +42,7 @@ meLIanTQ_WITH_GOOGLE := true
 # Set ro.modversion
 #
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.modversion=AOSPDesire_1.5.2
+    ro.modversion=AOSPDesire_1.5.3
 
 #
 # Copy Desire specific prebuilt files
@@ -53,6 +53,7 @@ PRODUCT_COPY_FILES +=  \
     vendor/meLIanTQ/prebuilt/bravo/app/SlideShow.apk:system/app/SlideShow.apk \
     vendor/meLIanTQ/prebuilt/bravo/etc/init.d/02modules:system/etc/init.d/02modules \
     vendor/meLIanTQ/prebuilt/bravo/etc/init.d/04safeoverclock:system/etc/init.d/04safeoverclock \
+    vendor/meLIanTQ/prebuilt/bravo/etc/init.d/05hostsloader:system/etc/init.d/05hostsloader \
     vendor/meLIanTQ/prebuilt/bravo/etc/init.d/10a2sd:system/etc/init.d/10a2sd \
     vendor/meLIanTQ/prebuilt/bravo/lib/libt99.so:system/lib/libt99.so \
     vendor/meLIanTQ/prebuilt/hdpi/media/bootanimation.zip:system/media/bootanimation.zip
