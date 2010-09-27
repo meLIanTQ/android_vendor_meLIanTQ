@@ -2,7 +2,6 @@
 PRODUCT_NAME := aosp
 PRODUCT_BRAND := aosp
 PRODUCT_DEVICE := generic
-TARGET_BUILD_VARIANT := user
 
 #PRODUCT_PACKAGES += ADWLauncher
 
