@@ -36,6 +36,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # CyanogenMod specific product packages
 PRODUCT_PACKAGES += \
     DSPManager \
+    FileManager \
     Themes \
     ThemesHelper \
     RenderFX
