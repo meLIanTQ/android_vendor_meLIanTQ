@@ -1,4 +1,4 @@
-ui_print("Welcome to AOSPDesire_1.5.3!");
+ui_print("Welcome to AOSPDesire_1.5.4!");
 assert(getprop("ro.product.device") == "bravo" || getprop("ro.build.product") == "bravo" || getprop("ro.product.board") == "bravo");
 show_progress(0.500000, 0);
 ui_print("Format /system");
