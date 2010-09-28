@@ -1,7 +1,7 @@
 #!/system/bin/sh
 #Script for AOSPDesire
 
-MODULES=/system/lib/modules/2.6.35.4-AOSPDesire
+MODULES=/system/lib/modules/2.6.35.6-AOSPDesire
 
 insmod $MODULES/kernel/fs/nfs_common/nfs_acl.ko;
 insmod $MODULES/kernel/fs/nfs/nfs.ko;
