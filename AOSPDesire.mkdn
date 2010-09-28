@@ -5,6 +5,14 @@ Changelog:
 
 Notes* Need time for integrate in Settings all CM Settings
 
+1.5.4
+
+    * -Kernel: HAVS Optional (up to 1305MHz)
+    * -Kernel: Update 2.6.35.6
+    * -Sync: with CyanogenMOD
+    * -Update: FRG83 Android
+    * -Changes: Revert User Build
+
 1.5.3
 
     * -Kernel: Update Yaffs
