@@ -35,9 +35,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Enable Windows Media
 WITH_WINDOWS_MEDIA := true
 
-# Enable With Google
-meLIanTQ_WITH_GOOGLE := true
-
 #
 # Set ro.modversion
 #

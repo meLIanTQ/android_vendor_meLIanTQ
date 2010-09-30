@@ -1,2 +1,0 @@
-mkdir -p `dirname $0`/prebuilt/common/app
-curl -o `dirname $0`/prebuilt/common/app/RomManager.apk -O http://koush.tandtgaming.com/recoveries/RomManager.apk
