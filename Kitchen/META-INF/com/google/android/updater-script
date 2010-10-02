@@ -118,7 +118,7 @@ package_extract_file("scripts/DelAdFreePrefs.sh", "/tmp/DelAdFreePrefs.sh");
 set_perm(0, 0, 0777, "/tmp/DelAdFreePrefs.sh");
 run_program("/tmp/DelAdFreePrefs.sh");
 ui_print("Move Music on SDCard Temporary Folder");
-package_extract_file("system/app/Music.apk", "/sdcard/AOSPDesireLoader/UpdateTMP");
+package_extract_file("system/app/Music.apk", "/sdcard/AOSPDesireLoader/UpdateTMP/Music.apk");
 ui_print("Delete Music.apk on system partition");
 delete("/system/app/Music.apk");
 show_progress(0.200000, 0);
