@@ -1,0 +1,51 @@
+#!/system/bin/sh
+#
+# Post Installation Script write by meLIanTQ for AOSPDesire
+# This Script is used only for the update
+
+echo "+++ Loading PostInstall Script Start";
+
+echo "+++ Mounting /data & /sdcard as read-write";
+busybox mount -o rw,nosuid,nodev,relatime -t yaffs2 /dev/block/mtdblock5 /data;
+busybox mount -o rw,dirsync,nosuid,nodev,noexec,relatime,uid=1000,gid=1015 -t vfat /dev/block/mmcblk0p1 /sdcard
+sleep 2
+
+if [ ! -e "/sdcard/AOSPDesireLoader/UpdateTMP" ]; then
+
+busybox echo "+++ PostInstall Script skipped, already applied";
+
+else
+
+busybox echo "+++ Install Application on /data partition";
+busybox chmod 777 /data/app;
+
+for apk in /sdcard/AOSPDesireLoader/UpdateTMP/*.apk
+do
+busybox echo "+++ Install Application: $apk";
+busybox cp -fp $apk /data/app
+done
+
+for apk in /data/app/*.apk
+do
+busybox echo "+++ Set permission of Applications: $apk";
+busybox chmod 644 /data/app/*.apk
+done
+
+busybox echo "+++ Copy hosts file on /data/local";
+busybox cp -f /sdcard/AOSPDesireLoader/UpdateTMP/hosts /data/local/hosts;
+busybox chmod 644 /data/local/hosts;
+
+busybox echo "+++ Delete the PostInstall folder";
+busybox rm -rf /sdcard/AOSPDesireLoader/UpdateTMP;
+
+fi
+
+echo "+++ Sync";
+busybox sync;
+sleep 2;
+
+echo "+++ Unmounting SD Card";
+busybox umount /sdcard;
+sleep 2;
+
+echo "+++ Loading PostInstall Script Stop";

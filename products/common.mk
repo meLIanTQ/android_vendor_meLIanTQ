@@ -68,8 +68,6 @@ PRODUCT_COPY_FILES += \
     vendor/meLIanTQ/prebuilt/common/etc/terminfo/u/unknown:system/etc/terminfo/u/unknown \
     vendor/meLIanTQ/prebuilt/common/etc/profile:system/etc/profile \
     vendor/meLIanTQ/prebuilt/common/etc/init.d/00banner:system/etc/init.d/00banner \
-    vendor/meLIanTQ/prebuilt/common/etc/init.d/01sysctl:system/etc/init.d/01sysctl \
-    vendor/meLIanTQ/prebuilt/common/etc/init.d/03firstboot:system/etc/init.d/03firstboot \
     vendor/meLIanTQ/prebuilt/common/etc/init.d/20userinit:system/etc/init.d/20userinit \
     vendor/meLIanTQ/prebuilt/common/etc/init.d/99complete:system/etc/init.d/99complete \
     vendor/meLIanTQ/prebuilt/common/xbin/htop:system/xbin/htop \

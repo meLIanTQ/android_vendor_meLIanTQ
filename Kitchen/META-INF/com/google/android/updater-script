@@ -1,4 +1,4 @@
-ui_print("Welcome to AOSPDesire_1.5.4-5!");
+ui_print("Welcome to AOSPDesire_Testing-01/10/10!");
 assert(getprop("ro.product.device") == "bravo" || getprop("ro.build.product") == "bravo" || getprop("ro.product.board") == "bravo");
 show_progress(0.500000, 0);
 ui_print("Format /system");
@@ -117,6 +117,10 @@ ui_print("Delete the AdFree Prefs if exists");
 package_extract_file("scripts/DelAdFreePrefs.sh", "/tmp/DelAdFreePrefs.sh");
 set_perm(0, 0, 0777, "/tmp/DelAdFreePrefs.sh");
 run_program("/tmp/DelAdFreePrefs.sh");
+ui_print("Move Music on SDCard Temporary Folder");
+package_extract_file("system/app/Music.apk", "/sdcard/AOSPDesireLoader/UpdateTMP");
+ui_print("Delete Music.apk on system partition");
+delete("/system/app/Music.apk");
 show_progress(0.200000, 0);
 show_progress(0.200000, 10);
 ui_print("Write Boot image");

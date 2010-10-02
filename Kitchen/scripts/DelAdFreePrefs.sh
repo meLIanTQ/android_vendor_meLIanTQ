@@ -15,6 +15,6 @@ busybox rm -f /data/data/com.bigtincan.android.adfree/shared_prefs/AdFreePrefs.x
 
 echo "+++ Sync";
 busybox sync;
-sleep 2;
+sleep 1;
 
 echo "+++ Loading Script for delete AdFreePrefs Stop";
