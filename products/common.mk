@@ -88,6 +88,7 @@ PRODUCT_COPY_FILES += \
         vendor/meLIanTQ/GApps/GoogleCalendarSyncAdapter.apk:system/app/GoogleCalendarSyncAdapter.apk \
         vendor/meLIanTQ/GApps/GoogleContactsSyncAdapter.apk:system/app/GoogleContactsSyncAdapter.apk \
         vendor/meLIanTQ/GApps/GoogleFeedback.apk:system/app/GoogleFeedback.apk \
+        vendor/meLIanTQ/GApps/GoogleQuickSearchBox.apk:system/app/GoogleQuickSearchBox.apk \
         vendor/meLIanTQ/GApps/GooglePartnerSetup.apk:system/app/GooglePartnerSetup.apk \
         vendor/meLIanTQ/GApps/GoogleServicesFramework.apk:system/app/GoogleServicesFramework.apk \
         vendor/meLIanTQ/GApps/HtcCopyright.apk:system/app/HtcCopyright.apk \

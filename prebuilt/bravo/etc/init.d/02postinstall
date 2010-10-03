@@ -17,7 +17,8 @@ busybox echo "+++ PostInstall Script skipped, already applied";
 else
 
 busybox echo "+++ Install Application on /data partition";
-busybox chmod 777 /data/app;
+busybox chmod 771 /data/app;
+busybox chown 1000:1000 /data/app
 
 for apk in /sdcard/AOSPDesireLoader/UpdateTMP/*.apk
 do
@@ -29,11 +30,8 @@ for apk in /data/app/*.apk
 do
 busybox echo "+++ Set permission of Applications: $apk";
 busybox chmod 644 /data/app/*.apk
+busybox chown 1000:1000 /data/app/*.apk
 done
-
-busybox echo "+++ Copy hosts file on /data/local";
-busybox cp -f /sdcard/AOSPDesireLoader/UpdateTMP/hosts /data/local/hosts;
-busybox chmod 644 /data/local/hosts;
 
 busybox echo "+++ Delete the PostInstall folder";
 busybox rm -rf /sdcard/AOSPDesireLoader/UpdateTMP;

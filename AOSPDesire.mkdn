@@ -5,6 +5,48 @@ Changelog:
 
 Notes* Need time for integrate in Settings all CM Settings
 
+1.6.0
+
+    * -ADD: Titanium Backup on data/app
+    * -Fix: Duplicate apk after update on apk on market.
+    * -Changes: Installation process , better logic
+
+Testing 01/10/10 + 02/10/10
+
+    * -Changes: AOSPDesire.conf update to 1.0.4 with right values of frequencies
+    * -Changes: Music & OIFileManager on data/app
+    * -Changes: Revert to Original Music
+    * -ADD: CarHome on data/app
+    * -Kernel: Fix Right CPU Tables (thx UpSpin for report)
+    * -Kernel: HAVS by default
+
+1.5.4-5
+
+    * -ADD: Common Loader
+	Common Loader: hosts / bootanimation.zip & recursive applications
+	Push whats you want load here: SDCard/AOSPDesireLoader/LoadMe
+	after perform a reboot (The LoadMe folder is delete after load)
+    * -Move many application on data/app
+	com.adobe.flashplayer-1.apk
+	com.adobe.reader-1.apk
+	com.bigtincan.android.adfree-1.apk
+	com.facebook.katana-1.apk
+	com.google.android.apps.chrometophone-1.apk
+	com.google.android.apps.googlevoice-1.apk
+	com.google.android.apps.maps-1.apk
+	com.google.android.apps.panoramio-1.apk
+	com.google.android.apps.unveil-1.apk
+	com.google.android.gm-1.apk
+	com.google.android.street-1.apk
+	com.google.android.voicesearch-1.apk
+	com.koushikdutta.rommanager-1.apk
+	com.noshufou.android.su-1.apk
+	com.twitter.android-1.apk
+    * -Fix: installation of application on data/app without get a error 4
+	It's not needed to delete all application for install on data/app, a wipe is not really required
+	*Notes: You need 22Mo free (temporary) on your SDCard for installation on boot
+    * -Changes: New Installation process
+
 1.5.4
 
     * -Kernel: HAVS Optional (up to 1305MHz)
