@@ -61,6 +61,7 @@ include external/svox/pico/lang/PicoLangItItInSystem.mk
 PRODUCT_COPY_FILES += \
     vendor/meLIanTQ/prebuilt/common/bin/handle_compcache:system/bin/handle_compcache \
     vendor/meLIanTQ/prebuilt/common/bin/compcache:system/bin/compcache \
+    vendor/meLIanTQ/prebuilt/common/bin/e2label:system/bin/e2label \
     vendor/meLIanTQ/prebuilt/common/bin/fix_permissions:system/bin/fix_permissions \
     vendor/meLIanTQ/prebuilt/common/etc/resolv.conf:system/etc/resolv.conf \
     vendor/meLIanTQ/prebuilt/common/etc/sysctl.conf:system/etc/sysctl.conf \

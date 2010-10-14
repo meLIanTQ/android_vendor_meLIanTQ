@@ -5,6 +5,15 @@ Changelog:
 
 Notes* Need time for integrate in Settings all CM Settings
 
+1.6.1
+
+    * -Update: All Apps
+    * -Update: HTC Proprietary files
+    * -Changes: apn-conf.xml updated
+    * -Changes: AOSPDesire.conf update to 1.0.5: Add System RW Overlays (For non s-off members) you get metamorph working :)
+    * -Sync: with CyanogenMOD
+    * -Kernel: AUFS 2.1 Support Built-in as module
+
 1.6.0
 
     * -ADD: Titanium Backup on data/app

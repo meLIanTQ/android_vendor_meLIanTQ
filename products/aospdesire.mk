@@ -48,10 +48,9 @@ PRODUCT_COPY_FILES +=  \
     vendor/meLIanTQ/prebuilt/bravo/app/Clicker.apk:system/app/Clicker.apk \
     vendor/meLIanTQ/prebuilt/bravo/app/HTC_IME.apk:system/app/HTC_IME.apk \
     vendor/meLIanTQ/prebuilt/bravo/app/SlideShow.apk:system/app/SlideShow.apk \
-    vendor/meLIanTQ/prebuilt/bravo/etc/init.d/01a2sd:system/etc/init.d/01a2sd \
-    vendor/meLIanTQ/prebuilt/bravo/etc/init.d/02postinstall:system/etc/init.d/02postinstall \
-    vendor/meLIanTQ/prebuilt/bravo/etc/init.d/03config:system/etc/init.d/03config \
-    vendor/meLIanTQ/prebuilt/bravo/etc/init.d/04loader:system/etc/init.d/04loader \
+    vendor/meLIanTQ/prebuilt/bravo/etc/init.d/01mountsdext:system/etc/init.d/01mountsdext \
+    vendor/meLIanTQ/prebuilt/bravo/etc/init.d/02config:system/etc/init.d/02config \
+    vendor/meLIanTQ/prebuilt/bravo/etc/init.d/10postinstall:system/etc/init.d/10postinstall \
     vendor/meLIanTQ/prebuilt/bravo/etc/AOSPDesire.conf:system/etc/AOSPDesire.conf \
     vendor/meLIanTQ/prebuilt/bravo/lib/libt99.so:system/lib/libt99.so \
     vendor/meLIanTQ/prebuilt/hdpi/media/bootanimation.zip:system/media/bootanimation.zip

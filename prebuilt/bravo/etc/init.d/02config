@@ -1,0 +1,314 @@
+#!/system/bin/sh
+#
+# Configuration Script write by meLIanTQ for AOSPDesire
+# 
+
+VERSION=1.0.5
+
+echo "+++ Loading Configuration Start $VERSION";
+
+echo "+++ Mounting /data & /sdcard as read-write";
+busybox mount -o rw,dirsync,nosuid,nodev,noexec,relatime,uid=1000,gid=1015 -t vfat /dev/block/mmcblk0p1 /sdcard
+sleep 2
+
+if [ -f /sdcard/AOSPDesireLoader/AOSPDesire.conf ]; then
+    echo "+++ Loading AOSPDesire Config File"
+    . /sdcard/AOSPDesireLoader/AOSPDesire.conf
+    if [ "$CONF_VERSION" != "1.0.6" ]; then
+	echo "+++ Old Version found on SDCard ..."
+	echo "+++ Copy New Version ..."
+	rm -f /sdcard/AOSPDesireLoader/AOSPDesire.conf
+        cp -f /system/etc/AOSPDesire.conf /sdcard/AOSPDesireLoader/AOSPDesire.conf
+	#Set the load of ExtraModules
+	CONF_MODULESEXTRA=0
+	#AUFS Overlays
+	CONF_AUFS_SYSTEM=1
+	CONF_AUFS_DATA=0
+	#Classic A2SD
+	CONF_A2SD=0
+	#Config Restore & folder
+	CONF_RESTORE=0
+	CONF_RESTOREFOLDER=
+	#Set the Clock of CPU
+	#Default use Stock Clock
+	CONF_OC=998400
+	# Set Governors for ETA Screen ON/OFF
+	AWAKE_GOVERNOR=ondemand
+	SLEEP_GOVERNOR=powersave
+    fi
+else
+    echo "+++ No Config Found on your SDCard..."
+    echo "+++ Copy StandAlone Version ..."
+    cp -f /system/etc/AOSPDesire.conf /sdcard/AOSPDesireLoader/AOSPDesire.conf
+	#Set the load of ExtraModules
+	CONF_MODULESEXTRA=0
+	#AUFS Overlays
+	CONF_AUFS_SYSTEM=1
+	CONF_AUFS_DATA=0
+	#Classic A2SD
+	CONF_A2SD=0
+	#Config Restore & folder
+	CONF_RESTORE=0
+	CONF_RESTOREFOLDER=
+	#Set the Clock of CPU
+	#Default use Stock Clock
+	CONF_OC=998400
+	# Set Governors for ETA Screen ON/OFF
+	AWAKE_GOVERNOR=ondemand
+	SLEEP_GOVERNOR=powersave
+fi
+
+############### ... Checking Important ... ###########
+if [ ! -e "/data/local/busybox" ]; then
+busybox echo "+++ busybox no present!!!";
+busybox echo "+++ Restore busybox ...";
+busybox cp -f /system/etc/backup/busybox /data/local/busybox;
+else
+busybox echo "+++ busybox present";
+busybox echo "+++ Restore busybox isn't needed...";
+fi
+############### ... Checking Important ... ###########
+############### ... AUFS Setup ... ###################
+if [ "$CONF_AUFS_SYSTEM" == "1" ]; then
+busybox echo "+++ Load AUFS Overlays On /system Partition";
+MODULES=/system/lib/modules/2.6.35.6-AOSPDesire
+insmod $MODULES/kernel/fs/aufs/aufs.ko;
+
+if [ -e /dev/block/mmcblk0p2 ];
+then
+RWDIRSYSTEM=/sd-ext/systemrw;
+RODIRSYSTEM=/sd-ext/systemro;
+mkdir $RWDIRSYSTEM;
+mkdir $RODIRSYSTEM;
+busybox chown 1000:1000 $RWDIRSYSTEM;
+busybox chown 1000:1000 $RODIRSYSTEM;
+busybox chmod 771 $RWDIRSYSTEM;
+busybox chmod 771 $RODIRSYSTEM;
+mount --move /system $RODIRSYSTEM;
+/data/local/busybox mount -t aufs -o br=$RWDIRSYSTEM=rw:$RODIRSYSTEM=ro aufs-system /system;
+fi
+else
+busybox echo "+++ Load AUFS Overlays On /system Partition Skipped";
+fi
+######################################################
+if ["$CONF_AUFS_DATA" == "1" ]; then
+elif [ "$CONF_A2SD" == "0" ]; then
+busybox echo "+++ Load AUFS Overlays On /data Partition";
+MODULES=/system/lib/modules/2.6.35.6-AOSPDesire
+insmod $MODULES/kernel/fs/aufs/aufs.ko;
+
+if [ -e /dev/block/mmcblk0p2 ];
+then
+RWDIRDATA=/sd-ext/datarw;
+RODIRDATA=/sd-ext/dataro;
+mkdir $RWDIRDATA;
+mkdir $RODIRDATA;
+busybox chown 1000:1000 $RWDIRDATA;
+busybox chown 1000:1000 $RODIRDATA;
+busybox chmod 771 $RWDIRDATA;
+busybox chmod 771 $RODIRDATA;
+mount --move /data $RODIRDATA;
+busybox mount -t aufs -o br=$RWDIRDATA=rw:$RODIRDATA=ro aufs-data /data;
+fi
+else
+busybox echo "+++ Load AUFS Overlays On /data Partition Skipped";
+fi
+############### ... AUFS Setup ... ###################
+############### ... A2SD Setup ... ###################
+if ["$CONF_AUFS_DATA" == "0" ]; then
+elif [ "$CONF_A2SD" == "1" ]; then
+busybox echo "+++ Load A2SD Classic";
+if [ -e /dev/block/mmcblk0p2 ];
+then
+
+    # clean up any old symlinks, create data directories
+    for i in data;
+	do
+		if [ -h /data/$i ];
+		then
+			rm /data/$i;
+		fi;
+		if [ ! -d /data/$i ];
+		then
+			mkdir /data/$i;
+			busybox chown 1000:1000 /data/$i;
+			busybox chmod 771 /data/$i;
+		fi;
+	done;
+
+    # don't allow /data/data on sd because of upgrade issues - move it if possible
+    if [ -d /sd-ext/data ];
+    then
+        busybox cp -a /sd-ext/data/* /data/data/;
+        busybox rm -rf /sd-ext/data;
+    fi;
+
+    # move apps from internal memory to sdcard
+    for i in app app-private dalvik-cache;
+    do
+        if [ ! -d /sd-ext/$i ];
+        then
+            mkdir /sd-ext/$i;
+        fi
+
+        busybox chown 1000:1000 /sd-ext/$i;
+        busybox chmod 771 /sd-ext/$i
+	    
+        if [ -d /data/$i ] && [ ! -h /data/$i ];
+        then
+            busybox cp -a /data/$i/* /sd-ext/$i/;
+            busybox rm -f /data/$i/*;
+        fi;
+    done;
+
+    # symlink app dirs - they must be on the same filesystem
+    for i in app app-private dalvik-cache;
+    do
+        if [ -d /data/$i ] && [ ! -h /data/$i ];
+        then
+            busybox rm -rf /data/$i;
+            busybox ln -s /sd-ext/$i /data/$i;
+        fi;
+    done;
+
+    # clean up old whiteouts
+    for i in local misc property system tombstones data;
+    do
+        if [ -h /sd-ext/$i ]; then rm -f /sd-ext/$i; fi
+    done;
+
+    # please don't put odex files in the app directory people!
+    # it causes dexopt to crash when switching builds!
+    busybox rm -f /sd-ext/app/*.odex
+
+    setprop cm.a2sd.active 1;
+    
+    echo "+++ Apps-to-SD successfully enabled";
+
+else
+    
+    # replace symlinks with directories so we can boot without sd
+    for i in app app-private dalvik-cache;
+    do
+       if [ -h /data/$i ];
+       then
+            rm -f /data/$i;
+            mkdir /data/$i;
+            busybox chown 1000:1000 /data/$i;
+            busybox chmod 771 /data/$i;
+        fi;
+    done;
+
+
+    setprop cm.a2sd.active 0;
+fi;
+sync;
+else
+busybox echo "+++ Load A2SD Skipped";
+fi
+############### ... A2SD Setup ... ###################
+############### ... Modules Config ... ###############
+# Load by default the ipv6 modules
+# Define where is modules
+MODULES=/system/lib/modules/2.6.35.6-AOSPDesire
+busybox echo "+++ Loading by default the ipv6 modules";
+for ko in $MODULES/kernel/net/ipv6/*.ko
+do
+busybox echo "+++ Loading: $ko";
+insmod $ko;
+done
+if [ "$CONF_MODULESEXTRA" == "1" ]; then
+busybox echo "+++ Load Extra modules selected";
+for ko in $MODULES/kernel/fs/*/*.ko
+do
+busybox echo "+++ Loading: $ko";
+insmod $ko;
+done
+for ko in $MODULES/kernel/net/sunrpc/*/*.ko
+do
+busybox echo "+++ Loading: $ko";
+insmod $ko;
+done
+else
+busybox echo "+++ Load Extra modules Skipped";
+fi
+############### ... Modules Config ... ###############
+
+############### ... Restore Config ... ###############
+if [ "$CONF_RESTOREFOLDER" == "" ]; then
+busybox echo "+++ Backups Folder no defined, Restore Skipped";
+elif [ ! -e "$CONF_RESTOREFOLDER" ]; then
+busybox echo "+++ Backups Folder don't exist, Restore Skipped";
+elif [ "$CONF_RESTORE" == "1" ]; then
+busybox echo "+++ Restore Application Scheduled";
+for apk in $CONF_RESTOREFOLDER/*.apk
+do
+busybox echo "+++ Restore Application: $apk";
+busybox cp -fp $apk /data/app
+done
+busybox echo "+++ Restore Application Finish";
+for apk in /data/app/*.apk
+do
+busybox echo "+++ Set permission of Applications: $apk";
+busybox chmod 644 /data/app/*.apk
+busybox chown 1000:1000 /data/app/*.apk
+done
+else
+busybox echo "+++ Restore Skipped";
+fi
+############### ... Restore Config ... ###############
+
+############### ... CPU Clock Config ... #############
+if [ "$CONF_OC" == "0" ]; then
+busybox echo "+++ CPU Clock Config Skipped";
+elif [ "$CONF_OC" == "998400" ]||[ "$CONF_OC" == "1036800" ]||[ "$CONF_OC" == "1075200" ]||[ "$CONF_OC" == "1113600" ]||[ "$CONF_OC" == "1152000" ]||[ "$CONF_OC" == "1190400" ]; then
+    echo "+++ Enabled CPU Clock: $CONF_OC +++"
+    echo $CONF_OC > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+else
+    echo "+++ Unknow CPU Clock"
+    echo "+++ Default CPU Clock Applied"
+    echo 998400 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+fi
+############### ... CPU Clock Config ... #############
+
+############### ... CPU Governors Config ... #########
+if [ "$AWAKE_GOVERNOR" == "0" ]||[ "$SLEEP_GOVERNOR" == "0" ]; then
+busybox echo "+++ CPU Governors Config Skipped";
+elif [ "$AWAKE_GOVERNOR" == "interactive" ]||[ "$AWAKE_GOVERNOR" == "conservative" ]||[ "$AWAKE_GOVERNOR" == "ondemand" ]||[ "$AWAKE_GOVERNOR" == "powersave" ]||[ "$AWAKE_GOVERNOR" == "userspace" ]||[ "$AWAKE_GOVERNOR" == "performance" ][ "$SLEEP_GOVERNOR" == "interactive" ]||[ "$SLEEP_GOVERNOR" == "conservative" ]||[ "$SLEEP_GOVERNOR" == "ondemand" ]||[ "$SLEEP_GOVERNOR" == "powersave" ]||[ "$SLEEP_GOVERNOR" == "userspace" ]||[ "$SLEEP_GOVERNOR" == "performance" ]; then
+    echo "+++ Selct Governors for Screen ON: $AWAKE_GOVERNOR"
+    echo "+++ Selct Governors for Screen OFF: $SLEEP_GOVERNOR"
+(while [ 1 ]
+do
+    AWAKE=`cat /sys/power/wait_for_fb_wake`
+    if [ $AWAKE = "awake" ]; then
+        echo $AWAKE_GOVERNOR > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+        log -p i -t screenstate_scaling "***  awake   ***: switching CPU frequency governor to -> $AWAKE_GOVERNOR"
+        AWAKE=
+    fi
+    SLEEPING=`cat /sys/power/wait_for_fb_sleep`
+    if [ $SLEEPING = "sleeping" ]; then
+        echo $SLEEP_GOVERNOR > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+        log -p i -t screenstate_scaling "*** sleeping ***: switching CPU frequency governor to -> $SLEEP_GOVERNOR"
+        SLEEPING=
+    fi    
+done &)
+else
+    echo "+++ Unknow Governors, skipped"
+fi
+############### ... CPU Governors Config ... #########
+
+# Check the CONF_RESTORE and reset to 0 after Restore
+if [ "$CONF_RESTORE" == "1" ]; then
+busybox echo "+++ Restore Set to 0";
+sed -i 's/CONF_RESTORE=1/CONF_RESTORE=0/g' /sdcard/AOSPDesireLoader/AOSPDesire.conf
+else
+fi
+# Check the CONF_RESTORE and reset to 0 after Restore
+
+echo "+++ Unmounting SD Card"
+busybox sync
+sleep 2
+busybox umount /sdcard
+sleep 2
+
+echo "+++ Loading Configuration Stop"
