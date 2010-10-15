@@ -5,9 +5,11 @@
 
 VERSION=1.0.5
 
+MODULES=/system/lib/modules/2.6.35.7-AOSPDesire
+
 echo "+++ Loading Configuration Start $VERSION";
 
-echo "+++ Mounting /data & /sdcard as read-write";
+echo "+++ Mounting /sdcard as read-write";
 busybox mount -o rw,dirsync,nosuid,nodev,noexec,relatime,uid=1000,gid=1015 -t vfat /dev/block/mmcblk0p1 /sdcard
 sleep 2
 
@@ -58,20 +60,10 @@ else
 	SLEEP_GOVERNOR=powersave
 fi
 
-############### ... Checking Important ... ###########
-if [ ! -e "/data/local/busybox" ]; then
-busybox echo "+++ busybox no present!!!";
-busybox echo "+++ Restore busybox ...";
-busybox cp -f /system/etc/backup/busybox /data/local/busybox;
-else
-busybox echo "+++ busybox present";
-busybox echo "+++ Restore busybox isn't needed...";
-fi
-############### ... Checking Important ... ###########
 ############### ... AUFS Setup ... ###################
 if [ "$CONF_AUFS_SYSTEM" == "1" ]; then
 busybox echo "+++ Load AUFS Overlays On /system Partition";
-MODULES=/system/lib/modules/2.6.35.6-AOSPDesire
+
 insmod $MODULES/kernel/fs/aufs/aufs.ko;
 
 if [ -e /dev/block/mmcblk0p2 ];
@@ -85,16 +77,17 @@ busybox chown 1000:1000 $RODIRSYSTEM;
 busybox chmod 771 $RWDIRSYSTEM;
 busybox chmod 771 $RODIRSYSTEM;
 mount --move /system $RODIRSYSTEM;
-/data/local/busybox mount -t aufs -o br=$RWDIRSYSTEM=rw:$RODIRSYSTEM=ro aufs-system /system;
+/sd-ext/systemro/xbin/busybox mount -t aufs -o br=$RWDIRSYSTEM=rw:$RODIRSYSTEM=ro aufs-system /system;
 fi
 else
 busybox echo "+++ Load AUFS Overlays On /system Partition Skipped";
 fi
 ######################################################
 if ["$CONF_AUFS_DATA" == "1" ]; then
+busybox echo "+++ Check if CONF_A2SD set to 0";
 elif [ "$CONF_A2SD" == "0" ]; then
 busybox echo "+++ Load AUFS Overlays On /data Partition";
-MODULES=/system/lib/modules/2.6.35.6-AOSPDesire
+
 insmod $MODULES/kernel/fs/aufs/aufs.ko;
 
 if [ -e /dev/block/mmcblk0p2 ];
@@ -115,94 +108,13 @@ busybox echo "+++ Load AUFS Overlays On /data Partition Skipped";
 fi
 ############### ... AUFS Setup ... ###################
 ############### ... A2SD Setup ... ###################
-if ["$CONF_AUFS_DATA" == "0" ]; then
-elif [ "$CONF_A2SD" == "1" ]; then
+if ["$CONF_A2SD" == "1" ]; then
+busybox echo "+++ Check if CONF_AUFS_DATA set to 0";
+elif [ "$CONF_AUFS_DATA" == "0" ]; then
 busybox echo "+++ Load A2SD Classic";
-if [ -e /dev/block/mmcblk0p2 ];
-then
 
-    # clean up any old symlinks, create data directories
-    for i in data;
-	do
-		if [ -h /data/$i ];
-		then
-			rm /data/$i;
-		fi;
-		if [ ! -d /data/$i ];
-		then
-			mkdir /data/$i;
-			busybox chown 1000:1000 /data/$i;
-			busybox chmod 771 /data/$i;
-		fi;
-	done;
+/system/bin/a2sd
 
-    # don't allow /data/data on sd because of upgrade issues - move it if possible
-    if [ -d /sd-ext/data ];
-    then
-        busybox cp -a /sd-ext/data/* /data/data/;
-        busybox rm -rf /sd-ext/data;
-    fi;
-
-    # move apps from internal memory to sdcard
-    for i in app app-private dalvik-cache;
-    do
-        if [ ! -d /sd-ext/$i ];
-        then
-            mkdir /sd-ext/$i;
-        fi
-
-        busybox chown 1000:1000 /sd-ext/$i;
-        busybox chmod 771 /sd-ext/$i
-	    
-        if [ -d /data/$i ] && [ ! -h /data/$i ];
-        then
-            busybox cp -a /data/$i/* /sd-ext/$i/;
-            busybox rm -f /data/$i/*;
-        fi;
-    done;
-
-    # symlink app dirs - they must be on the same filesystem
-    for i in app app-private dalvik-cache;
-    do
-        if [ -d /data/$i ] && [ ! -h /data/$i ];
-        then
-            busybox rm -rf /data/$i;
-            busybox ln -s /sd-ext/$i /data/$i;
-        fi;
-    done;
-
-    # clean up old whiteouts
-    for i in local misc property system tombstones data;
-    do
-        if [ -h /sd-ext/$i ]; then rm -f /sd-ext/$i; fi
-    done;
-
-    # please don't put odex files in the app directory people!
-    # it causes dexopt to crash when switching builds!
-    busybox rm -f /sd-ext/app/*.odex
-
-    setprop cm.a2sd.active 1;
-    
-    echo "+++ Apps-to-SD successfully enabled";
-
-else
-    
-    # replace symlinks with directories so we can boot without sd
-    for i in app app-private dalvik-cache;
-    do
-       if [ -h /data/$i ];
-       then
-            rm -f /data/$i;
-            mkdir /data/$i;
-            busybox chown 1000:1000 /data/$i;
-            busybox chmod 771 /data/$i;
-        fi;
-    done;
-
-
-    setprop cm.a2sd.active 0;
-fi;
-sync;
 else
 busybox echo "+++ Load A2SD Skipped";
 fi
@@ -210,7 +122,6 @@ fi
 ############### ... Modules Config ... ###############
 # Load by default the ipv6 modules
 # Define where is modules
-MODULES=/system/lib/modules/2.6.35.6-AOSPDesire
 busybox echo "+++ Loading by default the ipv6 modules";
 for ko in $MODULES/kernel/net/ipv6/*.ko
 do

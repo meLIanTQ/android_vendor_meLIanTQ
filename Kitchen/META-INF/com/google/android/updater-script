@@ -1,4 +1,4 @@
-ui_print("Welcome to AOSPDesire_101010!");
+ui_print("Welcome to AOSPDesire_1.6.2!");
 assert(getprop("ro.product.device") == "bravo" || getprop("ro.build.product") == "bravo" || getprop("ro.product.board") == "bravo");
 show_progress(0.500000, 0);
 ui_print("Format /system");
@@ -12,6 +12,11 @@ package_extract_dir("recovery", "/system");
 package_extract_dir("system", "/system");
 ui_print("Extract Data Application on SDCard");
 package_extract_dir("tmp", "/sdcard/AOSPDesireLoader/UpdateTMP");
+ui_print("Remove The CyanogenMOD Busybox");
+delete("/system/xbin/busybox");
+ui_print("Extract Busybox Static 1.17.3");
+package_extract_dir("BB1173", "/system");
+set_perm(0, 2000, 0755, 0755, "/system/xbin/busybox");
 ui_print("Create Symlink Busybox");
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
         "/system/xbin/arp", "/system/xbin/ash", "/system/xbin/awk",
@@ -109,9 +114,6 @@ set_perm(0, 0, 0544, "/system/etc/install-recovery.sh");
 set_perm_recursive(0, 0, 0755, 0555, "/system/etc/ppp");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/xbin");
 set_perm(0, 0, 06755, "/system/xbin/su");
-ui_print("Extract BB2");
-package_extract_dir("backup", "/system");
-set_perm(0, 2000, 0755, 0755, "/system/etc/backup/busybox");
 ui_print("Move Music & OIFileManager on SDCard");
 package_extract_file("system/app/Music.apk", "/sdcard/AOSPDesireLoader/UpdateTMP/com.android.music-1.apk");
 package_extract_file("system/app/FileManager.apk", "/sdcard/AOSPDesireLoader/UpdateTMP/org.openintents.filemanager-1.apk");
