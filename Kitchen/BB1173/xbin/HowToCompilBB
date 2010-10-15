@@ -1,0 +1,18 @@
+http://www.codesourcery.com/sgpp/lite/arm (Cross Compiler ARM)
+chmod u+x arm-2010q1-202-arm-none-linux-gnueabi.bin (or other)
+./arm-2010q1-202-arm-none-linux-gnueabi.bin (or others)
+
+git clone git://busybox.net/busybox.git
+cd busybox/
+
+make menuconfig
+
+$ Busybox Settings --> Build Options --> Build Busybox as a static binary (no shared libs)  -  Enable this option by pressing "Y"
+$ Busybox Settings --> Build Options --> Cross compiler prefix  -  Set this option equal to "arm-none-linux-gnueabi-"
+$ Busybox Settings --> Installation Options --> Don't use /usr  -  Enable this option by pressing "Y"
+$ Linux Module Utilities --> () Default directory containing modules - Set this option to nothing
+$ Linux Module Utilities --> () Default name of modules.dep - Set this option to nothing
+
+export PATH=$PATH:/home/meliantq/Sourcery/bin/ (Folders of Sourcey Bin Path)
+
+make
