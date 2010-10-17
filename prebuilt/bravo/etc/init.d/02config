@@ -215,6 +215,40 @@ else
 fi
 ############### ... CPU Governors Config ... #########
 
+############### ... MinFree Config ... ###############
+if [ "$CONF_MIN_FREE" == "0" ]; then
+busybox echo "+++ MinFree Skipped";
+fi
+if [ "$CONF_MIN_FREE" == "1" ]; then
+busybox echo "+++ MinFree Setting 1 Enable";
+echo "1536,2048,4096,5120,5632,6144" > /sys/module/lowmemorykiller/parameters/minfree
+fi
+if [ "$CONF_MIN_FREE" == "2" ]; then
+busybox echo "+++ MinFree Setting 2 Enable";
+busybox echo "1536,3072,4096,7680,8960,10240" > /sys/module/lowmemorykiller/parameters/minfree
+fi
+if [ "$CONF_MIN_FREE" == "3" ]; then
+busybox echo "+++ MinFree Setting 3 Enable";
+busybox echo "1536,2048,4096,10240,12800,15360" > /sys/module/lowmemorykiller/parameters/minfree
+fi
+if [ "$CONF_MIN_FREE" == "4" ]; then
+busybox echo "+++ MinFree Setting 4 Enable";
+busybox echo "1536,2048,4096,15360,17920,20480" > /sys/module/lowmemorykiller/parameters/minfree
+fi
+if [ "$CONF_MIN_FREE" == "5" ]; then
+busybox echo "+++ MinFree Setting 5 Enable";
+busybox echo "1536,2048,4096,21000,23000,25000" > /sys/module/lowmemorykiller/parameters/minfree
+fi
+if [ "$CONF_MIN_FREE" == "6" ]; then
+busybox echo "+++ MinFree Setting 6 Enable";
+busybox echo "1536,2048,4096,38400,40960,43520" > /sys/module/lowmemorykiller/parameters/minfree
+fi
+if [ "$CONF_MIN_FREE" == "7" ]; then
+busybox echo "+++ MinFree Setting 7 Enable";
+busybox echo "1536,2048,4096,51200,57600,64000" > /sys/module/lowmemorykiller/parameters/minfree
+fi
+############### ... MinFree Config ... ###############
+
 # Check the CONF_RESTORE and reset to 0 after Restore
 if [ "$CONF_RESTORE" == "1" ]; then
 busybox echo "+++ Restore Set to 0";
