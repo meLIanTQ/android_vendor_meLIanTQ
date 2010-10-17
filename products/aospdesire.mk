@@ -50,6 +50,7 @@ PRODUCT_COPY_FILES +=  \
     vendor/meLIanTQ/prebuilt/bravo/app/Clicker.apk:system/app/Clicker.apk \
     vendor/meLIanTQ/prebuilt/bravo/app/HTC_IME.apk:system/app/HTC_IME.apk \
     vendor/meLIanTQ/prebuilt/bravo/app/SlideShow.apk:system/app/SlideShow.apk \
+    vendor/meLIanTQ/prebuilt/bravo/bin/a2sd:system/bin/a2sd \
     vendor/meLIanTQ/prebuilt/bravo/etc/init.d/01mountsdext:system/etc/init.d/01mountsdext \
     vendor/meLIanTQ/prebuilt/bravo/etc/init.d/02config:system/etc/init.d/02config \
     vendor/meLIanTQ/prebuilt/bravo/etc/init.d/10postinstall:system/etc/init.d/10postinstall \
