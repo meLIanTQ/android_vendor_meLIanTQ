@@ -3,11 +3,11 @@
 # Configuration Script write by meLIanTQ for AOSPDesire
 # 
 
-VERSION=1.0.5
+VERSIONSCRIPT=1.0.7
 
 MODULES=/system/lib/modules/2.6.35.7-AOSPDesire
 
-echo "+++ Loading Configuration Start $VERSION";
+echo "+++ Loading Configuration Start $VERSIONSCRIPT";
 
 echo "+++ Mounting /sdcard as read-write";
 busybox mount -o rw,dirsync,nosuid,nodev,noexec,relatime,uid=1000,gid=1015 -t vfat /dev/block/mmcblk0p1 /sdcard
@@ -60,6 +60,15 @@ else
 	SLEEP_GOVERNOR=powersave
 fi
 
+############### ... Checking ... #####################
+if ["$CONF_AUFS_DATA" == "1" ]; then
+elif ["$CONF_A2SD" == "1" ]; then
+busybox echo "+++ AUFS For /data partions & a2sd enable same time";
+busybox echo "+++ AUFS For /data partions & a2sd are now disable";
+sed -i 's/CONF_AUFS_DATA=1/CONF_AUFS_DATA=0/g' /sdcard/AOSPDesireLoader/AOSPDesire.conf
+sed -i 's/CONF_A2SD=1/CONF_A2SD=0/g' /sdcard/AOSPDesireLoader/AOSPDesire.conf
+fi
+############### ... Checking ... #####################
 ############### ... AUFS Setup ... ###################
 if [ "$CONF_AUFS_SYSTEM" == "1" ]; then
 busybox echo "+++ Load AUFS Overlays On /system Partition";
@@ -84,14 +93,13 @@ busybox echo "+++ Load AUFS Overlays On /system Partition Skipped";
 fi
 ######################################################
 if ["$CONF_AUFS_DATA" == "1" ]; then
-busybox echo "+++ Check if CONF_A2SD set to 0";
-elif [ "$CONF_A2SD" == "0" ]; then
 busybox echo "+++ Load AUFS Overlays On /data Partition";
 
 insmod $MODULES/kernel/fs/aufs/aufs.ko;
 
 if [ -e /dev/block/mmcblk0p2 ];
 then
+
 RWDIRDATA=/sd-ext/datarw;
 RODIRDATA=/sd-ext/dataro;
 mkdir $RWDIRDATA;
@@ -100,6 +108,7 @@ busybox chown 1000:1000 $RWDIRDATA;
 busybox chown 1000:1000 $RODIRDATA;
 busybox chmod 771 $RWDIRDATA;
 busybox chmod 771 $RODIRDATA;
+
 mount --move /data $RODIRDATA;
 busybox mount -t aufs -o br=$RWDIRDATA=rw:$RODIRDATA=ro aufs-data /data;
 fi
@@ -109,8 +118,6 @@ fi
 ############### ... AUFS Setup ... ###################
 ############### ... A2SD Setup ... ###################
 if ["$CONF_A2SD" == "1" ]; then
-busybox echo "+++ Check if CONF_AUFS_DATA set to 0";
-elif [ "$CONF_AUFS_DATA" == "0" ]; then
 busybox echo "+++ Load A2SD Classic";
 
 /system/bin/a2sd
