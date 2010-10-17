@@ -41,7 +41,7 @@ WITH_WINDOWS_MEDIA := true
 # Set ro.modversion
 #
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.modversion=AOSPDesire_1.6.2
+    ro.modversion=AOSPDesire_1.6.3
 
 #
 # Copy Desire specific prebuilt files
