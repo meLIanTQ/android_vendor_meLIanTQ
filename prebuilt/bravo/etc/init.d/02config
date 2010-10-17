@@ -16,7 +16,7 @@ sleep 2
 if [ -f /sdcard/AOSPDesireLoader/AOSPDesire.conf ]; then
     echo "+++ Loading AOSPDesire Config File"
     . /sdcard/AOSPDesireLoader/AOSPDesire.conf
-    if [ "$CONF_VERSION" != "1.0.6" ]; then
+    if [ "$CONF_VERSION" != "1.0.7" ]; then
 	echo "+++ Old Version found on SDCard ..."
 	echo "+++ Copy New Version ..."
 	rm -f /sdcard/AOSPDesireLoader/AOSPDesire.conf
@@ -39,6 +39,7 @@ if [ -f /sdcard/AOSPDesireLoader/AOSPDesire.conf ]; then
 	SLEEP_GOVERNOR=powersave
 	#Swap Settings
 	CONF_SWAP=0
+	CONF_SWAPPINESS=60
 	#MinFree Settings
 	CONF_MIN_FREE=3
     fi
@@ -64,13 +65,13 @@ else
 	SLEEP_GOVERNOR=powersave
 	#Swap Settings
 	CONF_SWAP=0
+	CONF_SWAPPINESS=60
 	#MinFree Settings
 	CONF_MIN_FREE=3
 fi
 
 ############### ... Checking ... #####################
-if ["$CONF_AUFS_DATA" == "1" ]; then
-elif ["$CONF_A2SD" == "1" ]; then
+if [ "$CONF_AUFS_DATA" == "$CONF_A2SD" ] && > "0";then
 busybox echo "+++ AUFS For /data partions & a2sd enable same time";
 busybox echo "+++ AUFS For /data partions & a2sd are now disable";
 sed -i 's/CONF_AUFS_DATA=1/CONF_AUFS_DATA=0/g' /sdcard/AOSPDesireLoader/AOSPDesire.conf
@@ -100,7 +101,7 @@ else
 busybox echo "+++ Load AUFS Overlays On /system Partition Skipped";
 fi
 ######################################################
-if ["$CONF_AUFS_DATA" == "1" ]; then
+if [ "$CONF_AUFS_DATA" == "1" ]; then
 busybox echo "+++ Load AUFS Overlays On /data Partition";
 
 insmod $MODULES/kernel/fs/aufs/aufs.ko;
@@ -116,7 +117,6 @@ busybox chown 1000:1000 $RWDIRDATA;
 busybox chown 1000:1000 $RODIRDATA;
 busybox chmod 771 $RWDIRDATA;
 busybox chmod 771 $RODIRDATA;
-
 mount --move /data $RODIRDATA;
 busybox mount -t aufs -o br=$RWDIRDATA=rw:$RODIRDATA=ro aufs-data /data;
 fi
@@ -125,7 +125,7 @@ busybox echo "+++ Load AUFS Overlays On /data Partition Skipped";
 fi
 ############### ... AUFS Setup ... ###################
 ############### ... A2SD Setup ... ###################
-if ["$CONF_A2SD" == "1" ]; then
+if [ "$CONF_A2SD" == "1" ]; then
 busybox echo "+++ Load A2SD Classic";
 
 /system/bin/a2sd
@@ -237,14 +237,14 @@ busybox mkswap /dev/block/mmcblk0p3;
 fi;
 if [ -e /dev/block/mmcblk0p3 ];
 then
-busybox echo "+++ Set Swapiness"
-busybox echo 60 > /proc/sys/vm/swappiness;
+busybox echo "+++ Set Swapiness Value = $CONF_SWAPPINESS"
+busybox echo $CONF_SWAPPINESS > /proc/sys/vm/swappiness;
 busybox echo "+++ Activate Swap"
 busybox swapon /dev/block/mmcblk0p3;
 fi;
 fi;
 else
-    echo "+++ Swap Skipped"
+busybox echo "+++ Swap Skipped"
 fi
 ############### ... Swap Config ... ##################
 
