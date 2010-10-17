@@ -34,9 +34,11 @@ if [ -f /sdcard/AOSPDesireLoader/AOSPDesire.conf ]; then
 	#Set the Clock of CPU
 	#Default use Stock Clock
 	CONF_OC=998400
-	# Set Governors for ETA Screen ON/OFF
+	#Set Governors for ETA Screen ON/OFF
 	AWAKE_GOVERNOR=ondemand
 	SLEEP_GOVERNOR=powersave
+	#MinFree Settings
+	CONF_MIN_FREE=3
     fi
 else
     echo "+++ No Config Found on your SDCard..."
@@ -55,9 +57,11 @@ else
 	#Set the Clock of CPU
 	#Default use Stock Clock
 	CONF_OC=998400
-	# Set Governors for ETA Screen ON/OFF
+	#Set Governors for ETA Screen ON/OFF
 	AWAKE_GOVERNOR=ondemand
 	SLEEP_GOVERNOR=powersave
+	#MinFree Settings
+	CONF_MIN_FREE=3
 fi
 
 ############### ... Checking ... #####################
