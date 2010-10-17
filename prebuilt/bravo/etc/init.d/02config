@@ -37,6 +37,8 @@ if [ -f /sdcard/AOSPDesireLoader/AOSPDesire.conf ]; then
 	#Set Governors for ETA Screen ON/OFF
 	AWAKE_GOVERNOR=ondemand
 	SLEEP_GOVERNOR=powersave
+	#Swap Settings
+	CONF_SWAP=0
 	#MinFree Settings
 	CONF_MIN_FREE=3
     fi
@@ -60,6 +62,8 @@ else
 	#Set Governors for ETA Screen ON/OFF
 	AWAKE_GOVERNOR=ondemand
 	SLEEP_GOVERNOR=powersave
+	#Swap Settings
+	CONF_SWAP=0
 	#MinFree Settings
 	CONF_MIN_FREE=3
 fi
@@ -218,6 +222,31 @@ else
     echo "+++ Unknow Governors, skipped"
 fi
 ############### ... CPU Governors Config ... #########
+
+############### ... Swap Config ... ##################
+if [ "$CONF_SWAP" == "1" ]; then
+busybox echo "+++ Check If a Linux Swap Exist";
+# mmcblk0p3 swap/ext/fat32
+# mmcblk0p2 swap/fat32
+if [ -e /dev/block/mmcblk0p3 ];
+then
+if [ -n /dev/block/mmcblk0p3 ];
+then
+busybox echo "+++ Set Linux Swap"
+busybox mkswap /dev/block/mmcblk0p3;
+fi;
+if [ -e /dev/block/mmcblk0p3 ];
+then
+busybox echo "+++ Set Swapiness"
+busybox echo 60 > /proc/sys/vm/swappiness;
+busybox echo "+++ Activate Swap"
+busybox swapon /dev/block/mmcblk0p3;
+fi;
+fi;
+else
+    echo "+++ Swap Skipped"
+fi
+############### ... Swap Config ... ##################
 
 ############### ... MinFree Config ... ###############
 if [ "$CONF_MIN_FREE" == "0" ]; then
